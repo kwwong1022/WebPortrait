@@ -20,7 +20,7 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_popup": "/html/popup.html"
+        "default_popup": "/html/menu.html"
     },
     "chrome_url_overrides" : {
         "newtab": "/html/home/index.html"

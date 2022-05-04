@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <!-- link CSS -->
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/menu.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <!-- font-family: 'Quicksand', sans-serif; -->
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <!-- script -->
+    </head>
+
+    <body>
+        <div class="container" style="width: 320px; height: 500px; font-size: .93rem;">
+            <div class="app-name">
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 1.4rem;">
+                    <img src="../images/extension_icons/icon-128.png" style="width: 17px; margin: 0 .3rem 0 0;">
+                    <span style="font-size: 1.2rem;">Web Portrait</span>
+                </div>
+                <div style="width: 100%; font-size: .9rem; text-align: center; margin-top: .2rem;">Data portrait extension</div>
+            </div>
+
+            <!-- ===========  page content : agreement =========== -->
+            <div id="page-agreement" class="page" style="position: absolute; top: 70px; left: 0; padding: 1.5rem 1.5rem 1rem; width: 100%; transform: translateX(-100%); transition: transform 400ms ease-in; transition: opacity 250ms ease-in;">
+                <div style="width: 100%; text-align: center;">Agreement</div>
+                
+                <div class="scrollable" style="margin: .5rem .5rem .5rem; height: 260px; overflow-x: hidden; overflow-y: scroll; background-color: rgba(0, 0, 0, .05);">
+                    <div class="scrollable-content" style="padding: .5rem; font-size: .9rem;">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptas. Illo beatae delectus quibusdam doloremque sequi tenetur rem, pariatur tempora accusantium iure dolore optio quisquam doloribus, atque autem dignissimos nemo.
+                        Et vel optio eos eius eum quis expedita consequuntur temporibus, sit hic odio earum nemo, repellat voluptatibus minus sed cupiditate quasi modi laborum harum? Odio nobis voluptatem quae ut excepturi.
+                        Itaque velit doloremque vero incidunt. Perferendis, officiis molestiae eius cumque quos laudantium voluptate placeat at iure natus distinctio totam libero non exercitationem, culpa dignissimos nisi quod architecto saepe. Fugit, nesciunt?
+                        Quidem, minima porro nisi corporis voluptatibus placeat ea impedit debitis minus adipisci odio maxime dolorum accusamus vitae reiciendis, dolores explicabo laudantium. Unde consequatur hic laudantium accusamus quod asperiores adipisci facere.
+                        Et temporibus qui reprehenderit ad maiores sequi quibusdam! Earum quod tempora autem harum aspernatur quidem, expedita a consequatur similique asperiores aperiam eligendi, veniam ipsam nihil officia nemo est consectetur corporis.</p><br>
+                    </div>
+                </div>
+
+                <div style="padding: .2rem 0 .4rem 1.4rem;">
+                    <input type="radio" id="radio-accept" value="false" style="width: .9rem;">
+                    <label for="radio" style="font-size: .85rem;"> I accept the above agreement.</label><br>
+                </div>
+
+                <div style="display: flex; justify-content: center; width: 100%;">
+                    <div id="btn-accept" style="border-radius: 5px; background-color: rgba(0, 0, 0, .9); margin-top: .6rem; padding: .3rem 1rem .45rem; color: white; cursor: pointer; font-size: .85rem;">Continue</div>
+                </div>
+            </div>
+
+            <!-- ============== page content : menu ============== -->
+            <div id="page-menu" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(0); transition: transform 400ms ease-in;">
+                2: Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quos non repudiandae eveniet. Eligendi recusandae cum minus repellendus, ex vero culpa autem voluptatem laborum beatae reiciendis voluptatibus maxime hic dignissimos!
+            </div>
+
+            <!-- ============ page content : settings ============ -->
+            <div id="page-settings" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(100%); transition: transform 400ms ease-in;">
+                3: Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore impedit voluptatem iusto nostrum alias, voluptatibus optio a sint, laudantium doloribus debitis, omnis ducimus voluptas repudiandae corporis saepe harum illo repellendus.
+            </div>
+
+            <!-- btn : setting -->
+            <div id="btn-setting" style="position: absolute; bottom: 20px; right: 1.5rem; cursor: pointer; opacity: 0; transition: opacity 250ms ease-in;">
+                <img src="../images/extension_icons/setting-128.png" style="width: 20px; cursor: pointer;">
+            </div>
+
+            <!-- credit -->
+            <div id="credit" style="position: absolute; bottom: 20px; left: 1.5rem; font-size: .8rem; color: rgba(0, 0, 0, .4); opacity: 0; transition: opacity 250ms ease-in;">
+                created by Wong Kai Fung
+            </div>
+
+        </div>
+
+        <!-- script -->
+        <script src= "../js/menu.js"></script>
+    </body>
+</html>

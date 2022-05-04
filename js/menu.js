@@ -36,6 +36,19 @@ btnSetting.addEventListener('click', () => {
     }
 })
 
+// window.onload = () => {
+//     chrome.tabs.captureVisibleTab((dataUrl) => {
+//         alert(dataUrl);
+//         // chrome.downloads.download({
+//         //     filename: "download.jpg",
+//         //     url: dataUrl
+//         // })
+//     })
+//     chrome.tabs.getCapturedTabs((tabs) => {
+//         alert(tabs);
+//     })
+// }
+
 btnAccept.addEventListener('click', () => {
     // save user option
     if (radioAcceptAgreement.checked) {

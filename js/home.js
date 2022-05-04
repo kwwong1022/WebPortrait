@@ -1,0 +1,1 @@
+document.querySelectorAll("a").forEach(a => a.style.color = "rgba(76, 139, 245)");

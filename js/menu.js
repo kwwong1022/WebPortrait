@@ -3,6 +3,7 @@ const PAGE_MENU = 0; PAGE_SETTINGS = 1;
 let pageAgreement = document.querySelector("#page-agreement");
 let pageMenu = document.querySelector("#page-menu");
 let pageSettings = document.querySelector("#page-settings");
+let pageAlbum = document.querySelector("#page-album");
 let btnSetting = document.querySelector("#btn-setting");
 let radioAcceptAgreement = document.querySelector("#radio-accept");
 let btnAccept = document.querySelector("#btn-accept");
@@ -12,11 +13,9 @@ let isAgreementAccepted = false;
 let currPage = 0;
 
 // load user settings - chrome.storage.sync
-chrome.storage.sync.get("isAgreementAccepted", ({ isAgreementAccepted }) => {
+chrome.storage.sync.get("agreementAccepted", ({ agreementAccepted }) => {
     // does user accepted the agreement before ?
-    if (isAgreementAccepted) isAgreementAccepted = result;
-    alert(`result: ${isAgreementAccepted}, isAccepted: ${isAgreementAccepted}`);
-
+    if (agreementAccepted) isAgreementAccepted = agreementAccepted;
     // reset pages order - UI
     initUI();
 })
@@ -41,7 +40,8 @@ btnAccept.addEventListener('click', () => {
     // save user option
     if (radioAcceptAgreement.checked) {
         isAgreementAccepted = true;
-        chrome.storage.sync.set({ isAgreementAccepted });
+        let agreementAccepted = isAgreementAccepted;
+        chrome.storage.sync.set({ agreementAccepted });
         // update UI
         pageMenu.style.display = "flex";
         pageSettings.style.display = "flex";
@@ -51,6 +51,7 @@ btnAccept.addEventListener('click', () => {
         pageAgreement.style.opacity = "0";
         credit.style.opacity = "100";
         btnSetting.style.opacity = "100";
+
     } else {
         alert('Please accept the agreement to continue.');
     }
@@ -63,7 +64,6 @@ let initUI = () => {
         // show agreement page
         pageMenu.style.display = "none";
         pageSettings.style.display = "none";
-
         pageAgreement.style.transform = "translateX(0)";
         pageMenu.style.transform = "translateX(100%)";
         pageSettings.style.transform = "translateX(200%)";
@@ -71,6 +71,14 @@ let initUI = () => {
     } else {
         // show menu
         pageAgreement.style.display = "none";
+        pageMenu.style.display = "flex";
+        pageSettings.style.display = "flex";
+        pageAgreement.style.transform = "translateX(-100%)";
+        pageMenu.style.transform = "translateX(0%)";
+        pageSettings.style.transform = "translateX(100%)";
+        pageAgreement.style.opacity = "0";
+        credit.style.opacity = "100";
+        btnSetting.style.opacity = "100";
     }
 }
 

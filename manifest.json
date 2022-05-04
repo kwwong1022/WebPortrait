@@ -3,7 +3,7 @@
     "description": "Web Portrait is a data portrait project that generate data portrait image in the homepage by analysing user's network usage habits.",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["storage"],
+    "permissions": ["storage", "activeTab", "scripting"],
     "icons": {
         "16": "/images/extension_icons/icon-16.png",
         "48": "/images/extension_icons/icon-48.png",

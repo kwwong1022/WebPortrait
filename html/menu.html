@@ -7,6 +7,7 @@
         <!-- font-family: 'Quicksand', sans-serif; -->
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <!-- script -->
+        <script src= "../js/p5.js"></script>
     </head>
 
     <body>
@@ -25,17 +26,15 @@
                 
                 <div class="scrollable" style="margin: .5rem .5rem .5rem; height: 260px; overflow-x: hidden; overflow-y: scroll; background-color: rgba(0, 0, 0, .05);">
                     <div class="scrollable-content" style="padding: .5rem; font-size: .9rem;">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptas. Illo beatae delectus quibusdam doloremque sequi tenetur rem, pariatur tempora accusantium iure dolore optio quisquam doloribus, atque autem dignissimos nemo.
-                        Et vel optio eos eius eum quis expedita consequuntur temporibus, sit hic odio earum nemo, repellat voluptatibus minus sed cupiditate quasi modi laborum harum? Odio nobis voluptatem quae ut excepturi.
-                        Itaque velit doloremque vero incidunt. Perferendis, officiis molestiae eius cumque quos laudantium voluptate placeat at iure natus distinctio totam libero non exercitationem, culpa dignissimos nisi quod architecto saepe. Fugit, nesciunt?
-                        Quidem, minima porro nisi corporis voluptatibus placeat ea impedit debitis minus adipisci odio maxime dolorum accusamus vitae reiciendis, dolores explicabo laudantium. Unde consequatur hic laudantium accusamus quod asperiores adipisci facere.
-                        Et temporibus qui reprehenderit ad maiores sequi quibusdam! Earum quod tempora autem harum aspernatur quidem, expedita a consequatur similique asperiores aperiam eligendi, veniam ipsam nihil officia nemo est consectetur corporis.</p><br>
+                        <p></p><br>
+                        <p></p><br>
+                        <p></p><br>
                     </div>
                 </div>
 
                 <div style="padding: .2rem 0 .4rem 1.4rem;">
                     <input type="radio" id="radio-accept" value="false" style="width: .9rem;">
-                    <label for="radio" style="font-size: .85rem;"> I accept the above agreement.</label><br>
+                    <label for="radio" style="font-size: .85rem;"> I accept the above agreements.</label><br>
                 </div>
 
                 <div style="display: flex; justify-content: center; width: 100%;">
@@ -45,12 +44,22 @@
 
             <!-- ============== page content : menu ============== -->
             <div id="page-menu" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(0); transition: transform 400ms ease-in;">
-                2: Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quos non repudiandae eveniet. Eligendi recusandae cum minus repellendus, ex vero culpa autem voluptatem laborum beatae reiciendis voluptatibus maxime hic dignissimos!
+                <!-- history -->
+                <div></div>
+
+                <!-- trending : p5 -->
+                <div id="menu-trend-s" class="sketch" style=""></div>
             </div>
 
             <!-- ============ page content : settings ============ -->
             <div id="page-settings" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(100%); transition: transform 400ms ease-in;">
-                3: Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore impedit voluptatem iusto nostrum alias, voluptatibus optio a sint, laudantium doloribus debitis, omnis ducimus voluptas repudiandae corporis saepe harum illo repellendus.
+                <!-- username -->
+                
+            </div>
+
+            <!-- ============ page content : data portrait album ============ -->
+            <div id="page-album" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; display: none; opacity: 0; transition: transform 400ms ease-in;">
+                <!-- page-album -->
             </div>
 
             <!-- btn : setting -->
@@ -67,5 +76,6 @@
 
         <!-- script -->
         <script src= "../js/menu.js"></script>
+        <script src= "../js/menu-trend-sketch.js"></script>
     </body>
 </html>

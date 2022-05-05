@@ -1,6 +1,6 @@
 menuTrendSketch = (s) => {
     s.setup = function() {
-        s.createCanvas(document.querySelector('#menu-trend-s').clientWidth, document.querySelector('#menu-trend-s').clientHeight);
+        s.createCanvas(document.querySelector('#menu-trend-s').clientWidth+400, document.querySelector('#menu-trend-s').clientHeight+400);
         // chrome api test
         // chrome.storage.sync.get("agreementAccepted", ({ agreementAccepted }) => {
         // })

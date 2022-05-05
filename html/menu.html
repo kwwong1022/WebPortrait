@@ -11,63 +11,146 @@
     </head>
 
     <body>
-        <div class="container" style="width: 320px; height: 500px; font-size: .93rem;">
+        <div class="container">
             <div class="app-name">
-                <div style="display: flex; justify-content: center; align-items: center; margin-top: 1.4rem;">
-                    <img src="../images/extension_icons/icon-128.png" style="width: 17px; margin: 0 .3rem 0 0;">
-                    <span style="font-size: 1.2rem;">Web Portrait</span>
-                </div>
-                <div style="width: 100%; font-size: .9rem; text-align: center; margin-top: .2rem;">Data portrait extension</div>
+                <img src="../images/extension_icons/icon-128.png">
+                <span>Web Portrait</span>
             </div>
+            <div class="app-subtitle">Data portrait extension</div>
 
             <!-- ===========  page content : agreement =========== -->
-            <div id="page-agreement" class="page" style="position: absolute; top: 70px; left: 0; padding: 1.5rem 1.5rem 1rem; width: 100%; transform: translateX(-100%); transition: transform 400ms ease-in; transition: opacity 250ms ease-in;">
-                <div style="width: 100%; text-align: center;">Agreement</div>
+            <div id="page-agreement" class="page">
+                <div class="title">Agreement</div>
                 
-                <div class="scrollable" style="margin: .5rem .5rem .5rem; height: 260px; overflow-x: hidden; overflow-y: scroll; background-color: rgba(0, 0, 0, .05);">
-                    <div class="scrollable-content" style="padding: .5rem; font-size: .9rem;">
+                <!-- agreements -->
+                <div class="scrollable">
+                    <div class="scrollable-content">
                         <p></p><br>
                         <p></p><br>
                         <p></p><br>
                     </div>
                 </div>
 
-                <div style="padding: .2rem 0 .4rem 1.4rem;">
-                    <input type="radio" id="radio-accept" value="false" style="width: .9rem;">
-                    <label for="radio" style="font-size: .85rem;"> I accept the above agreements.</label><br>
+                <div class="accept-content">
+                    <input type="radio" id="radio-accept" value="false">
+                    <label for="radio"> I accept the above agreements.</label><br>
                 </div>
 
-                <div style="display: flex; justify-content: center; width: 100%;">
-                    <div id="btn-accept" style="border-radius: 5px; background-color: rgba(0, 0, 0, .9); margin-top: .6rem; padding: .3rem 1rem .45rem; color: white; cursor: pointer; font-size: .85rem;">Continue</div>
-                </div>
+                <div class="btn-container"><div id="btn-accept">Continue</div></div>
             </div>
 
             <!-- ============== page content : menu ============== -->
-            <div id="page-menu" class="page" style="width: 100%; position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(0); transition: transform 400ms ease-in;">
-                <div style="width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="page-menu" class="page">
+                <div class="menu-content">
                     <!-- history -->
-                    <div style="width: 100%; text-align: center; margin-bottom: .4rem;">History</div>
-                    <div id="container-history" class="scrollable" style="width: 100%; height: 245px; overflow-x: hidden; overflow-y: scroll; margin-bottom: 1rem;">
-                        <div class="scrollable-content" style="width: 100%; font-size: .9rem;">
+                    <div class="title">History</div>
+                    <div id="container-history" class="scrollable">
+                        <div class="scrollable-content">
                             <!-- history cards : a - indicator | domain -->
-                            <a class="card-history" href="" target="_blank" style="text-decoration: none; width: 100%; margin-top: .3rem; border-radius: 5px; border: 1px solid rgba(0, 0, 0, .4); padding: .2rem .5rem .3rem; display: flex; justify-content: left; align-items: center;">
-                                <div style="background-color: rgb(47, 120, 96); border-radius: 50%; width: 10px; height: 10px; margin-right: .5rem;"></div>
-                                <div>www.google.com</div>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
+                            </a>
+                            <a class="card-history" href="https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end" target="_blank">
+                                <div class="indicator"></div>
+                                <div class="url">https://stackoverflow.com/questions/486563/overflowhidden-dots-at-the-end</div>
                             </a>
                         </div>
                     </div>
 
                     <!-- trending : p5 - open for final version -->
-                    <div style="display: flex; justify-content: center; width: 100%; display: none;">
-                        <div id="menu-trend-s" class="sketch" style="width: 100%; height: 90px;"></div>
-                    </div>
+                    <div class="sketch"><div id="menu-trend-s"></div></div>
                 </div>
             </div>
 
             <!-- ============ page content : settings ============ -->
-            <div id="page-settings" class="page" style="position: absolute; top: 70px; left: 0; padding: 1rem 1.5rem 1rem; transform: translateX(100%); transition: transform 400ms ease-in;">
-                <!-- username -->
-                
+            <div id="page-settings" class="page">
+                <div class="setting-content" style="width: 100%;">
+                    <div class="title" style="width: 100%; text-align: center; margin: .5rem 0 1rem;">Setting</div>
+                    <form>
+                        <!-- username : text -->
+                        <div style="width: 100%;">
+                            <label for="username">Name: &nbsp</label>
+                            <input type="text" id="username" name="username" style="width: 210px;"><br>
+                        </div>
+                        <!-- gender : option -->
+                        <div style="width: 100%; margin-top: .9rem;">
+                            <label for="gender">Gender: &nbsp</label>
+                            <input type="radio" id="gender-male" name="gender" value=false>
+                            <label for="gender-male">male</label>
+                            <input type="radio" id="gender-female" name="gender" value=false>
+                            <label for="gender-female">female</label>
+                            <input type="radio" id="gender-private" name="gender" value=false>
+                            <label for="gender-private">private</label>
+                        </div>
+                        <!-- max result : range -->
+                        <div style="width: 100%; margin: .8rem 0 .3rem">
+                            <label for="max-result">Max-result: &nbsp</label>
+                            <input type="range" id="max-result" name="max-result" min="10" max="100">
+                            <span>&nbsp <span id="max-result-display">50</span></span>
+                        </div>
+                        <div style="color: rgba(0, 0, 0, .6); font-size: .8rem;">* max result shown in menu</div>
+                        <!-- sample image : range -->
+                        <div style="width: 100%; margin-top: .9rem;">
+                            <div style="width: 100%; margin: .6rem 0 .3rem">
+                                <label for="sample-image">Sample: &nbsp</label>
+                                <input type="range" id="sample-image" name="sample-image" min="40" max="200">
+                                <span>&nbsp <span id="sample-image-display">120</span></span>
+                            </div>
+                            <div style="color: rgba(0, 0, 0, .6); font-size: .8rem;">* sample images used to generate the data portrait</div>
+                        </div>
+                        <!-- reuse sample image : check box -->
+                        <div style="width: 100%; margin: .8rem 0 .3rem">
+                            <input type="checkbox" id="reuse-sample" name="reuse-sample" value="true">
+                            <label for="reuse-sample"> reuse sample image</label><br>
+                        </div>
+                        <div style="color: rgba(0, 0, 0, .6); font-size: .8rem;">* use repeated sample image when the sample is not enought</div>
+                        <!-- document -->
+                        <div style="width: 100%; margin-top: .9rem;">
+                            <a href="https://observablehq.com/@kwwong1022/final-project-document" style="color: rgba(0, 0, 0, .6); text-decoration: underline;">Extension document</a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <!-- ============ page content : data portrait album ============ -->
@@ -76,13 +159,11 @@
             </div>
 
             <!-- btn : setting -->
-            <div id="btn-setting" style="position: absolute; bottom: 20px; right: 1.5rem; cursor: pointer; opacity: 0; transition: opacity 250ms ease-in;">
-                <img src="../images/extension_icons/setting-128.png" style="width: 20px; cursor: pointer;">
-            </div>
+            <div id="btn-setting"><img src="../images/extension_icons/setting-128.png"></div>
 
             <!-- credit -->
-            <div id="credit" style="position: absolute; bottom: 20px; left: 1.5rem; font-size: .8rem; color: rgba(0, 0, 0, .4); opacity: 0; transition: opacity 250ms ease-in;">
-                created by Wong Kai Fung
+            <div id="credit">
+                Created by <a href="https://kwwdev.com/" target="_blank">Wong Kai Fung</a>
             </div>
 
         </div>

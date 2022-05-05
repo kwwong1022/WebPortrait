@@ -1,3 +1,172 @@
+.container {
+    width: 320px; 
+    height: 500px; 
+    font-size: .93rem;
+}
+
+.app-name {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 1.4rem;
+}
+.app-name img {
+    width: 17px; margin: 0 .3rem 0 0;
+}
+.app-name span {
+    font-size: 1.2rem;
+}
+.app-subtitle {
+    width: 100%; 
+    font-size: .9rem; 
+    text-align: center; 
+    margin-top: .2rem;
+}
+
+/* page : agreement */
+#page-agreement {
+    position: absolute; 
+    top: 70px; left: 0; 
+    padding: 1.5rem 1.5rem 1rem; 
+    width: 100%; 
+    transform: translateX(-100%); 
+    transition: transform 400ms ease-in; 
+    transition: opacity 250ms ease-in;
+}
+#page-agreement .title {
+    width: 100%; 
+    text-align: center;
+}
+#page-agreement .scrollable {
+    margin: .5rem .5rem .5rem; 
+    height: 260px; 
+    overflow-x: hidden; 
+    overflow-y: scroll; 
+    background-color: rgba(0, 0, 0, .05);
+}
+#page-agreement .scrollable .scrollable-content {
+    padding: .5rem; 
+    font-size: .9rem;
+}
+#page-agreement .accept-content {
+    padding: .2rem 0 .4rem 1.4rem;
+}
+#page-agreement .accept-content #radio-accept {
+    width: .9rem;
+}
+#page-agreement .accept-content label {
+    font-size: .85rem;
+}
+#page-agreement .btn-container {
+    display: flex; 
+    justify-content: center; 
+    width: 100%;
+}
+#page-agreement .btn-container #btn-accept {
+    border-radius: 5px; 
+    background-color: rgba(0, 0, 0, .9); 
+    margin-top: .6rem; 
+    padding: .3rem 1rem .45rem; 
+    color: white; cursor: pointer; 
+    font-size: .85rem;
+}
+
+/* page : agreement */
+#page-menu {
+    width: 100%; 
+    position: absolute; 
+    top: 70px; left: 0; 
+    padding: 1rem 1.5rem 1rem; 
+    transform: translateX(0); 
+    transition: transform 400ms ease-in;
+}
+#page-menu .menu-content {
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+}
+#page-menu .menu-content .title {
+    width: 100%; 
+    text-align: center; 
+    margin-bottom: .4rem;
+}
+#page-menu .menu-content #container-history {
+    width: 100%; height: 245px; 
+    overflow-x: hidden; 
+    overflow-y: scroll; 
+    margin-bottom: 1rem;
+}
 #container-history::-webkit-scrollbar {
     display: none;
+}
+#page-menu .menu-content #container-history .scrollable-content {
+    width: 100%; 
+    font-size: .9rem;
+}
+#page-menu .menu-content #container-history .card-history {
+    text-decoration: none;
+    width: 100%; 
+    margin-top: .3rem; 
+    border-radius: 5px; 
+    border: 1px solid rgba(0, 0, 0, .4); 
+    padding: .3rem .5rem .4rem; 
+    display: flex; 
+    justify-content: left; 
+    align-items: center;
+}
+#page-menu .menu-content #container-history .card-history .indicator {
+    /* remove this in the final product */
+    background-color: rgb(47, 120, 96); 
+    border-radius: 50%; 
+    width: 10px; height: 10px; 
+    margin-right: .5rem;
+}
+#page-menu .menu-content #container-history .card-history .url {
+    width: 100px; height: 15px; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
+#page-menu .menu-content .sketch {
+    display: flex; 
+    justify-content: center; 
+    width: 100%; 
+    /* remove this in the final product */
+    display: none;
+}
+#page-menu #menu-trend-s {
+    width: 100%; height: 90px;
+}
+
+/* page : settings */
+#page-settings {
+    width: 100%; 
+    position: absolute; 
+    top: 70px; left: 0; 
+    padding: 1rem 1.5rem 1rem; 
+    transform: translateX(100%); 
+    transition: transform 400ms ease-in;
+}
+
+/* UI */
+#btn-setting {
+    position: absolute; 
+    bottom: 20px; right: 1.5rem; 
+    cursor: pointer; 
+    opacity: 0; 
+    transition: opacity 250ms ease-in;
+}
+#btn-setting img {
+    width: 20px; 
+    cursor: pointer;
+}
+#credit {
+    position: absolute; 
+    bottom: 20px; left: 1.5rem; 
+    font-size: .8rem; 
+    opacity: 0; 
+    transition: opacity 250ms ease-in;
+}
+#credit, #credit a {
+    color: rgba(0, 0, 0, .5); 
 }

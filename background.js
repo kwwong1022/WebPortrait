@@ -24,3 +24,15 @@ chrome.runtime.onInstalled.addListener(() => {
 //         })
 //     })
 // }
+
+// setInterval(() => {
+
+//     chrome.tabs.captureVisibleTab((dataUrl) => {
+//         console.log(dataUrl);
+//         chrome.downloads.download({
+//             filename: "download.jpg",
+//             url: dataUrl
+//         })
+//     })
+
+// }, 50000);

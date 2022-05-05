@@ -3,7 +3,7 @@
     "description": "Web Portrait is a data portrait project that generate data portrait image in the homepage by analysing user's network usage habits.",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["storage", "unlimitedStorage", "tabs", "activeTab", "<all_urls>", "scripting", "history", "tabCapture", "desktopCapture", "downloads"],
+    "permissions": ["storage", "unlimitedStorage", "tabs", "activeTab", "scripting", "history", "tabCapture", "desktopCapture", "downloads"],
     "icons": {
         "16": "/images/extension_icons/icon-16.png",
         "48": "/images/extension_icons/icon-48.png",
@@ -24,9 +24,5 @@
     },
     "chrome_url_overrides" : {
         "newtab": "/html/home/index.html"
-    },
-    "content_scripts": [ {
-        "matches": ["<all_urls>"],
-        "js": ["/js/screen-capture.js"]
-    } ]
+    }
 }

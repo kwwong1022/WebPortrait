@@ -16,13 +16,21 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (!temp) {
                 // if history queue == undefined -> create 
                 console.log("history queue is empty");
-                chrome.storage.local.set({ historyQueue: { isEmpty: false, queue: [{ url: changeInfo.url, date: `${(new Date()).getDate()}-${(new Date()).getMonth()}-${(new Date()).getFullYear()}` }] } }, function() {console.log("history queue has been created")});
+                chrome.storage.local.set({ historyQueue: { 
+                    isEmpty: false, 
+                    queue: [{ url: changeInfo.url, 
+                        date: (new Date()).getDate(), 
+                        month: (new Date()).getMonth(), 
+                        year: (new Date()).getFullYear() 
+                    }] } }, function() {console.log("history queue has been created")});
                 
             } else {
                 temp.isEmpty = false;
                 temp.queue.push({ 
                     url: changeInfo.url, 
-                    date: `${(new Date()).getDate()}-${(new Date()).getMonth()}-${(new Date()).getFullYear()}` 
+                    date: (new Date()).getDate(), 
+                    month: (new Date()).getMonth(), 
+                    year: (new Date()).getFullYear()
                 });
             }
             chrome.storage.local.set({ historyQueue: temp }, function() { console.log("history queue has been updated") });
@@ -31,6 +39,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 });
 
-let initHistoryQueue = () => {
-    chrome.storage.local.remove(['historyQueue'], function(){})
-}
+// let initHistoryQueue = () => {
+//     chrome.storage.local.remove(['historyQueue'], function(){})
+// }
+//initHistoryQueue();

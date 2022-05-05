@@ -7,7 +7,7 @@
         <!-- font-family: 'Quicksand', sans-serif; -->
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <!-- script -->
-        <script src= "../js/p5.js"></script>
+        <script src= "../js//lib/p5.js"></script>
     </head>
 
     <body>
@@ -25,9 +25,10 @@
                 <!-- agreements -->
                 <div class="scrollable">
                     <div class="scrollable-content">
-                        <p></p><br>
-                        <p></p><br>
-                        <p></p><br>
+                        <span>While using the extension, the user's browser history will be recorded.</span><br>
+                        <span>The user's browser history will only be stored unilaterally in the user's browser local storage and will not be recorded by the developer.</span><br>
+                        <span>Part of the extension function uses third-party APIs that need to be connected to the internet to fetch data. Users need to bear the risk that the transferred data during the process may be leaked.</span><br>
+                        <span>This extension software is a non-profit-making project. Please do not modify the code of this extension software without authorization and use the generated data portrait for profit.</span><br>
                     </div>
                 </div>
 
@@ -124,10 +125,13 @@
 
             <!-- image progessing -->
             <div id="image-progessing" style="position: absolute; bottom: 0; left: 320px; width: 1920px; height: 1080px;"></div>
+            <!-- histroy analysis container : place fetched html here -->
+            <div id="history-analysis-container" style="display: none; position: absolute; bottom: 0; left: 320;"></div>
         </div>
 
         <!-- script -->
         <script src= "../js/menu.js"></script>
+        <script src= "../js/sample.js"></script>
         <script src= "../js/menu-trend-sketch.js"></script>
         <script src= "../js/process-history.js"></script>
     </body>

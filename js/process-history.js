@@ -17,8 +17,13 @@ let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
  * };
 */
 
+//loadHistoryCard();
+
 // check if history queue is empty
 setTimeout(async () => {
+    // load history to menu
+    loadHistoryCard();
+
     chrome.storage.local.get(['historyQueue'], function(data) { 
         // if not empty, get history queue : save instance
         if (data.historyQueue && !data.historyQueue.isEmpty) {
@@ -87,7 +92,7 @@ setTimeout(async () => {
                                 } }, function() {});
 
                                 // load history to menu
-
+                                loadHistoryCard();
                             }
                         })
                     });
@@ -156,7 +161,58 @@ let getAnalyzed = (url, htmlContent) => {
 
 // func load history cards based on user setting
 let loadHistoryCard = () => {
-    
+    let cardContainer = document.querySelector("#container-history .scrollable-content");
+    // load analyzed data from local storage
+    chrome.storage.local.get(['analyzedData'], function(result) {
+        let analyzed = result.analyzedData;
+
+        // if exist
+        if (analyzed) {
+            const maxHistoryResult = 100;
+            analyzed = result.analyzedData.analyzedHistory;
+
+            // To-Do: from reversed order - new -> old
+            analyzed.forEach((history, i) => {
+                if (i < maxHistoryResult) {
+                    // create element
+                    let card = document.createElement('a');
+                    let cardIndicator = document.createElement('div');
+                    let cardUrl = document.createElement('div');
+                    card.classList.add('card-history');
+                    cardIndicator.classList.add('indicator');
+                    cardUrl.classList.add('url')
+                    card.href = history.url;
+                    cardUrl.innerText = history.url;
+
+                    // change color based on type
+                    let color = "";  // default: other
+                    switch (history.analyzed.type) {
+                        case "entertainment":
+                            color = "";
+                            break;
+                        case "education":
+                            color = "";
+                            break;
+                        case "finance":
+                            color = "";
+                            break;
+                        case "shopping":
+                            color = "";
+                            break;
+                        case "politics":
+                            color = "";
+                            break;
+                    }
+                    cardIndicator.style.backgroundColor = color;
+
+                    // append to card container
+                    card.appendChild(cardIndicator);
+                    card.appendChild(cardUrl);
+                    cardContainer.insertAdjacentElement('beforebegin', card);
+                }
+            });
+        }
+    })
 }
 
 

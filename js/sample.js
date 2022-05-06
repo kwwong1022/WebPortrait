@@ -1,7 +1,7 @@
 let typeSample = {
     entertainment: ["youtube", "bilibili", "viu", "netflix", "game", "fandom", "imdb", "disney", "pixiv", "spotify", "archiveofourown", "hotstar", "worldstar", "nicovideo", "douban", "anime", "manga", "comic", "twitch", "play", "vimeo", "art", "tiktok"],
     social: ["facebook", "weibo", "reddit", "twitter", "instagram", "meta", "linkedin", "tumblr", "whatsapp", "line", "telegram", "flickr", "snapchat", "wechat", "social"],
-    education: ["stackoverflow", "canvas", "edu", "w3schools", "github", "arduino", "developer", "school", "college", "edx", "udemy", "academic", "university", "coursera", "learn", "course", "lesson", "teacher", "class"], 
+    education: ["observablehq", "stackoverflow", "canvas", "edu", "w3schools", "github", "arduino", "developer", "school", "college", "edx", "udemy", "academic", "university", "coursera", "learn", "course", "lesson", "teacher", "class"], 
     finance: ["betterment", "bank", "finance", "earnest", "feex", "wallet", "nft", "pay", "kiplinger", "invest", "business", "cnbc"], 
     shopping: ["shop", "store", "market", "asos", "clothing", "zalora", "lorna", "zara", "yoox", "yesstyle", "nike", "farfetch", "outnet", "outlet", "luisaviaroma", "ssense", "addias", "mydress", "alibaba", "amazon", "ebay", "price", "parknshop", "aliexpress", "mannings", "hktvmall", "muji", "sony", "steam", "lenovo", "apple", "wellcome", "watsons", "dyson", "iherb"], 
     politics: ["news", "times", "huffpost", "bloomberg", "dailymail", "thesun", "telegraph", "cnbc", "scmp", "time", "nypost", "bbc", "wsj", "washingtonpost", "gov", "hk01", "rthk"]

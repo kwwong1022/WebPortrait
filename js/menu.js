@@ -178,9 +178,3 @@ let initUI = () => {
         btnSetting.style.opacity = "100";
     }
 }
-
-// tutorial content
-// const changeColor = document.querySelector("#colorChange");
-// chrome.storage.sync.get("color", ({ color }) => {
-//     changeColor.style.background = color;
-// })

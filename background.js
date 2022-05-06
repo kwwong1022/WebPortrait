@@ -13,8 +13,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
         chrome.storage.local.get(['historyQueue'], function(result) {
             let temp = result.historyQueue;
+            // if history queue == undefined -> create 
             if (!temp) {
-                // if history queue == undefined -> create 
                 console.log("history queue is empty");
                 chrome.storage.local.set({ historyQueue: { 
                     isEmpty: false, 
@@ -38,8 +38,3 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         chrome.storage.local.get(['historyQueue'], function(result) { console.log(result.historyQueue) });
     }
 });
-
-// let initHistoryQueue = () => {
-//     chrome.storage.local.remove(['historyQueue'], function(){})
-// }
-//initHistoryQueue();

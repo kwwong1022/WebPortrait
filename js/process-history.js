@@ -1,4 +1,6 @@
 const historyAnalysisContainer = document.querySelector("#history-analysis-container");
+const screenchotContainer = document.querySelector("#screenshot-container");
+const screenshotWidth = 80, screenshotHeight = 60;
 
 let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
 /** 
@@ -17,89 +19,98 @@ let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
  * };
 */
 
-//loadHistoryCard();
 
 // check if history queue is empty
 setTimeout(async () => {
     // load history to menu
     loadHistoryCard();
 
-    chrome.storage.local.get(['historyQueue'], function(data) { 
-        // if not empty, get history queue : save instance
-        if (data.historyQueue && !data.historyQueue.isEmpty) {
-            tempAnalyzedData.isEmpty = false;
-            // analysis each history
-            let lastQueue = data.historyQueue.queue.length-1;
-            data.historyQueue.queue.forEach((history, i) => {
-                // get html content by url
-                if (history.url != "chrome://newtab/") {
-                    // main function - hide for debugging
-                    fetch(`https://kwwdev.com/api-test/html-fetching?url=${history.url}`)  // fetching html api created by myself
-                    .then(res => res.text())
-                    .then(htmlContent => {
-                        let tempResult = getAnalyzed(history.url, htmlContent);
-                        historyAnalysisContainer.innerHTML = "";
+    if (isAgreementAccepted) {
+        chrome.storage.local.get(['historyQueue'], function(data) { 
+            // if not empty, get history queue : save instance
+            if (data.historyQueue && !data.historyQueue.isEmpty) {
+                tempAnalyzedData.isEmpty = false;
+                // analysis each history
+                let lastQueue = data.historyQueue.queue.length-1;
+                data.historyQueue.queue.forEach((history, i) => {
+                    // get html content by url
+                    if (history.url != "chrome://newtab/") {
+                        // main function - hide for debugging
+                        fetch(`https://kwwdev.com/api-test/html-fetching?url=${history.url}`)  // fetching html api created by myself
+                        .then(res => res.text())
+                        .then(htmlContent => {
+                            let tempResult = getAnalyzed(history.url, htmlContent);
+                            historyAnalysisContainer.innerHTML = "";
 
-                        // get screenchot : puppeteer api - 800px * 600px
-                        // https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot | query: ?url
-                        // fetch image
-                        fetch("https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot?url=https://github.com/explore")
-                        .then(res => res.blob())
-                        .then(imgBlob => {  // combo with : let url = URL.createObjectURL(images)
-                            // create a local obj url for storing
-                            const pageImgBlob = URL.createObjectURL(imgBlob);
+                            // get screenchot : puppeteer api - 800px * 600px
+                            // https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot | query: ?url
+                            // fetch image
+                            fetch(`https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot?url=${history.url}`)
+                            .then(res => res.blob())
+                            .then(imgBlob => {
+                                // convert blob to jpeg image data url
+                                createImageBitmap(imgBlob)
+                                .then(imgBitmap => {
+                                    let ctx = screenchotContainer.getContext("2d");
+                                    ctx.drawImage(imgBitmap, 0, 0, screenshotWidth, screenshotHeight);
+                                    let jpegFile = screenchotContainer.toDataURL("image/jpeg");
 
-                            // data structure to store analyzed data saved to tempAnalyzedData
-                            let temp = {
-                                url: history.url,
-                                analyzed: tempResult,
-                                imgBlobURL: pageImgBlob,
-                                date: history.date,
-                                month: history.month,
-                                year: history.year
-                            }
+                                    //document.querySelector("#btn-setting img").src = jpegFile;
+                                    // alert(jpegFile);
 
-                            tempAnalyzedData.analyzedHistory.push(temp);
-                            
-                            // check is last history in queue
-                            if (i==lastQueue) {
-                                // if true - save all data to local storage  ======== unchecked =======
-                                chrome.storage.local.get(['analyzedData'], function(result) {
-                                    let analyzed = result.analyzedData;
+                                    // data structure to store analyzed data saved to tempAnalyzedData
+                                    let temp = {
+                                        url: history.url,
+                                        analyzed: tempResult,
+                                        imgURL: jpegFile,
+                                        date: history.date,
+                                        month: history.month,
+                                        year: history.year
+                                    }
 
-                                    // if analyzedData == undefined -> create 
-                                    if (!analyzed) {
-                                        // init with current analyzed data
-                                        let analyzedData = tempAnalyzedData;
-                                        chrome.storage.local.set({ analyzedData }, function() {alert("analyzedData has been created")});
+                                    tempAnalyzedData.analyzedHistory.push(temp);
+                                    
+                                    // check is last history in queue
+                                    if (i==lastQueue) {
+                                        // if true - save all data to local storage
+                                        chrome.storage.local.get(['analyzedData'], function(result) {
+                                            let analyzed = result.analyzedData;
 
-                                    } else {
-                                        // append new analyzed data to analyzedHistory : combine array objects
-                                        let oriArr = analyzed.analyzedHistory;
-                                        let currArr = tempAnalyzedData.analyzedHistory;
+                                            // if analyzedData == undefined -> create 
+                                            if (!analyzed) {
+                                                // init with current analyzed data
+                                                let analyzedData = tempAnalyzedData;
+                                                chrome.storage.local.set({ analyzedData }, function() {alert("analyzedData has been created")});
 
-                                        analyzed.analyzedHistory = oriArr.concat(currArr);
-                                        let analyzedData = analyzed;
-                                        chrome.storage.local.set({ analyzedData }, function() { alert("analyzedData has been updated") });
+                                            } else {
+                                                // append new analyzed data to analyzedHistory : combine array objects
+                                                let oriArr = analyzed.analyzedHistory;
+                                                let currArr = tempAnalyzedData.analyzedHistory;
+
+                                                analyzed.analyzedHistory = oriArr.concat(currArr);
+                                                let analyzedData = analyzed;
+                                                chrome.storage.local.set({ analyzedData }, function() { alert("analyzedData has been updated") });
+                                            }
+                                        })
+
+                                        // clear historyQueue.queue
+                                        // set historyQueue.queue to [], historyQueue.isEmpty to true
+                                        chrome.storage.local.set({ historyQueue: { 
+                                            isEmpty: true, 
+                                            queue: [] 
+                                        } }, function() {});
+
+                                        // load history to menu
+                                        loadHistoryCard();
                                     }
                                 })
-
-                                // clear historyQueue.queue
-                                // set historyQueue.queue to [], historyQueue.isEmpty to true
-                                chrome.storage.local.set({ historyQueue: { 
-                                    isEmpty: true, 
-                                    queue: [] 
-                                } }, function() {});
-
-                                // load history to menu
-                                loadHistoryCard();
-                            }
-                        })
-                    });
-                }
-            })
-        }
-    });
+                            })
+                        });
+                    }
+                })
+            }
+        });
+    }
 }, 100);
 
 let getAnalyzed = (url, htmlContent) => {
@@ -185,22 +196,22 @@ let loadHistoryCard = () => {
                     cardUrl.innerText = history.url;
 
                     // change color based on type
-                    let color = "";  // default: other
+                    let color = "rgb(173, 173, 173)";  // default: other
                     switch (history.analyzed.type) {
                         case "entertainment":
-                            color = "";
+                            color = "rgb(56, 148, 209)";
                             break;
                         case "education":
-                            color = "";
+                            color = "rgb(50, 199, 55)";
                             break;
                         case "finance":
-                            color = "";
+                            color = "rgb(199, 147, 50)";
                             break;
                         case "shopping":
-                            color = "";
+                            color = "rgb(179, 50, 199)";
                             break;
                         case "politics":
-                            color = "";
+                            color = "rgb(199, 104, 50)";
                             break;
                     }
                     cardIndicator.style.backgroundColor = color;
@@ -214,11 +225,3 @@ let loadHistoryCard = () => {
         }
     })
 }
-
-// generate data portrait
-// var: update frequency ?
-// chrome.storage.sync: lastUpdated
-// check undefined || is expired
-// if so, generate
-// ========== generate: p5js ==========
-// save result to local storage

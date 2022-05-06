@@ -168,7 +168,7 @@ let loadHistoryCard = () => {
 
         // if exist
         if (analyzed) {
-            const maxHistoryResult = 100;
+            let maxHistoryResult = rangeMaxResult.value;
             analyzed = result.analyzedData.analyzedHistory;
 
             // To-Do: from reversed order - new -> old
@@ -214,9 +214,6 @@ let loadHistoryCard = () => {
         }
     })
 }
-
-
-
 
 // generate data portrait
 // var: update frequency ?

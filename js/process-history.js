@@ -1,35 +1,100 @@
 const historyAnalysisContainer = document.querySelector("#history-analysis-container");
 
-let result = [];
+let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
+/** 
+ * let tempAnalyzedData = {
+ *     isEmpty: true,
+ *     analyzedHistory: [
+ *         {
+ *             url: URL,
+ *             analyzed: { type: "", emotion: { ... } },
+ *             imgBlobURL: URL,
+ *             date: int,
+ *             month: int,
+ *             year: int
+ *         }
+ *     ]
+ * };
+*/
 
 // check if history queue is empty
 setTimeout(async () => {
     chrome.storage.local.get(['historyQueue'], function(data) { 
         // if not empty, get history queue : save instance
         if (data.historyQueue && !data.historyQueue.isEmpty) {
+            tempAnalyzedData.isEmpty = false;
             // analysis each history
-            data.historyQueue.queue.forEach(history => {
+            let lastQueue = data.historyQueue.queue.length-1;
+            data.historyQueue.queue.forEach((history, i) => {
                 // get html content by url
                 if (history.url != "chrome://newtab/") {
+                    // main function - hide for debugging
                     fetch(`https://kwwdev.com/api-test/html-fetching?url=${history.url}`)  // fetching html api created by myself
                     .then(res => res.text())
                     .then(htmlContent => {
-                        let result = getAnalyzed(history.url, htmlContent);
+                        let tempResult = getAnalyzed(history.url, htmlContent);
                         historyAnalysisContainer.innerHTML = "";
-                        alert(`result: { type: ${result.type}, emotion: { happy: ${result.emotion.happy}, sad: ${result.emotion.sad}, anger: ${result.emotion.anger}, surprise: ${result.emotion.surprise}, fear: ${result.emotion.fear}, neutral: ${result.emotion.neutral} } }`);
 
                         // get screenchot : puppeteer api - 800px * 600px
-                        // https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot?url=https://github.com/explore
+                        // https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot | query: ?url
+                        // fetch image
+                        fetch("https://asia-east2-kwwong1022-329215.cloudfunctions.net/getScreenshot?url=https://github.com/explore")
+                        .then(res => res.blob())
+                        .then(imgBlob => {  // combo with : let url = URL.createObjectURL(images)
+                            // create a local obj url for storing
+                            const pageImgBlob = URL.createObjectURL(imgBlob);
 
-                        // data structure to store analyzed data
+                            // data structure to store analyzed data saved to tempAnalyzedData
+                            let temp = {
+                                url: history.url,
+                                analyzed: tempResult,
+                                imgBlobURL: pageImgBlob,
+                                date: history.date,
+                                month: history.month,
+                                year: history.year
+                            }
+
+                            tempAnalyzedData.analyzedHistory.push(temp);
+                            
+                            // check is last history in queue
+                            if (i==lastQueue) {
+                                // if true - save all data to local storage  ======== unchecked =======
+                                chrome.storage.local.get(['analyzedData'], function(result) {
+                                    let analyzed = result.analyzedData;
+
+                                    // if analyzedData == undefined -> create 
+                                    if (!analyzed) {
+                                        // init with current analyzed data
+                                        let analyzedData = tempAnalyzedData;
+                                        chrome.storage.local.set({ analyzedData }, function() {alert("analyzedData has been created")});
+
+                                    } else {
+                                        // append new analyzed data to analyzedHistory : combine array objects
+                                        let oriArr = analyzed.analyzedHistory;
+                                        let currArr = tempAnalyzedData.analyzedHistory;
+
+                                        analyzed.analyzedHistory = oriArr.concat(currArr);
+                                        let analyzedData = analyzed;
+                                        chrome.storage.local.set({ analyzedData }, function() { alert("analyzedData has been updated") });
+                                    }
+                                })
+
+                                // clear historyQueue.queue
+                                // set historyQueue.queue to [], historyQueue.isEmpty to true
+                                chrome.storage.local.set({ historyQueue: { 
+                                    isEmpty: true, 
+                                    queue: [] 
+                                } }, function() {});
+
+                                // load history to menu
+
+                            }
+                        })
                     });
                 }
             })
         }
     });
-
-    // clear historyQueue.queue
-    // chrome.storage.local.remove(['historyQueue'], function(){})
 }, 100);
 
 let getAnalyzed = (url, htmlContent) => {
@@ -51,7 +116,6 @@ let getAnalyzed = (url, htmlContent) => {
         }
     }
     if (!catFound) result.type = 'other';
-    //alert(`${hostname}: type: ${result.type}`);
 
     // analyze words in html content
     let emos = Object.keys(emotionSample);
@@ -90,10 +154,10 @@ let getAnalyzed = (url, htmlContent) => {
     return result;
 }
 
-// load history cards based on user setting
-// append new analyzed data -> script var
-// append new analyzed data to local storage
-// analyzedData: { url, analyzed:{cats:%}, screenshot }
+// func load history cards based on user setting
+let loadHistoryCard = () => {
+    
+}
 
 
 

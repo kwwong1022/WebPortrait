@@ -2,6 +2,8 @@ const historyAnalysisContainer = document.querySelector("#history-analysis-conta
 const screenchotContainer = document.querySelector("#screenshot-container");
 const screenshotWidth = 80, screenshotHeight = 60;
 
+let rmr = 55;
+
 let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
 /** 
  * let tempAnalyzedData = {
@@ -23,7 +25,10 @@ let tempAnalyzedData = { isEmpty: true, analyzedHistory: [] };
 // check if history queue is empty
 setTimeout(async () => {
     // load history to menu
-    loadHistoryCard();
+    chrome.storage.sync.get("maxResult", ({ maxResult }) => {
+        if (maxResult) { rmr = maxResult; }
+        loadHistoryCard();
+    });
 
     if (isAgreementAccepted) {
         chrome.storage.local.get(['historyQueue'], function(data) { 
@@ -114,7 +119,7 @@ setTimeout(async () => {
 }, 100);
 
 let getAnalyzed = (url, htmlContent) => {
-    let result = { emotion: { happy: 0, sad: 0, anger: 0, surprise: 0, fear: 0, neutral: 1  } };
+    let result = { emotion: { happy: 0, sad: 0, anger: 0, surprise: 0, fear: 0, neutral: .1  } };
     // url obj : get domain
     let { hostname } = new URL(url);
     // analyze web domain - web cats : entertainment, education, finance, shopping, politics, other
@@ -179,49 +184,58 @@ let loadHistoryCard = () => {
 
         // if exist
         if (analyzed) {
-            let maxHistoryResult = rangeMaxResult.value;
-            analyzed = result.analyzedData.analyzedHistory;
-
             // To-Do: from reversed order - new -> old
-            analyzed.forEach((history, i) => {
-                if (i < maxHistoryResult) {
-                    // create element
-                    let card = document.createElement('a');
-                    let cardIndicator = document.createElement('div');
-                    let cardUrl = document.createElement('div');
-                    card.classList.add('card-history');
-                    cardIndicator.classList.add('indicator');
-                    cardUrl.classList.add('url')
-                    card.href = history.url;
-                    cardUrl.innerText = history.url;
+            analyzed = result.analyzedData.analyzedHistory;
+            // recent to latest
+            let sample = 0;
+            let latest = analyzed.length-1;
 
-                    // change color based on type
-                    let color = "rgb(173, 173, 173)";  // default: other
-                    switch (history.analyzed.type) {
-                        case "entertainment":
-                            color = "rgb(56, 148, 209)";
-                            break;
-                        case "education":
-                            color = "rgb(50, 199, 55)";
-                            break;
-                        case "finance":
-                            color = "rgb(199, 147, 50)";
-                            break;
-                        case "shopping":
-                            color = "rgb(179, 50, 199)";
-                            break;
-                        case "politics":
-                            color = "rgb(199, 104, 50)";
-                            break;
-                    }
-                    cardIndicator.style.backgroundColor = color;
+            for (let i=latest; i>=0; i--) {
+                let history = analyzed[i];
 
-                    // append to card container
-                    card.appendChild(cardIndicator);
-                    card.appendChild(cardUrl);
-                    cardContainer.insertAdjacentElement('beforebegin', card);
+                // create element
+                let card = document.createElement('a');
+                let cardIndicator = document.createElement('div');
+                let cardUrl = document.createElement('div');
+                card.classList.add('card-history');
+                cardIndicator.classList.add('indicator');
+                cardUrl.classList.add('url')
+                card.href = history.url;
+                cardUrl.innerText = history.url;
+
+                // change color based on type
+                let color = "rgb(173, 173, 173)";  // default: other
+                switch (history.analyzed.type) {
+                    case "entertainment":
+                        color = "rgb(56, 148, 209)";
+                        break;
+                    case "social":
+                        color = "rgb(166, 36, 112)";
+                        break;
+                    case "education":
+                        color = "rgb(50, 199, 55)";
+                        break;
+                    case "finance":
+                        color = "rgb(199, 147, 50)";
+                        break;
+                    case "shopping":
+                        color = "rgb(179, 50, 199)";
+                        break;
+                    case "politics":
+                        color = "rgb(199, 104, 50)";
+                        break;
                 }
-            });
+                cardIndicator.style.backgroundColor = color;
+
+                // append to card container
+                card.appendChild(cardIndicator);
+                card.appendChild(cardUrl);
+                cardContainer.appendChild(card);
+
+                // last
+                if (i==0 || sample > rangeMaxResult.value) { break; }
+                sample++;
+            }
         }
     })
 }

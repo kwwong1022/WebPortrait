@@ -131,8 +131,6 @@
     display: flex; 
     justify-content: center; 
     width: 100%; 
-    /* remove this in the final product */
-    display: none;
 }
 #page-menu #menu-trend-s {
     width: 100%; height: 90px;

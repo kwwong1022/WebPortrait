@@ -39,6 +39,7 @@ dataPortraitSketch = (s) => {
             if (analyzed) {
                 analyzed = result.analyzedData.analyzedHistory;
 
+                // recent to old - below WRONG
                 analyzed.forEach((history, i) => {
                     // load data based on user's sample number setting : hists[]
                     if (i < sampleNum) {
@@ -68,6 +69,8 @@ dataPortraitSketch = (s) => {
         s.image(hists[hists.length-1].image, 0, 0);
         
     }
+
+    // s.windowResized = function() {}
 }
 
 var dataPortraitP5 = new p5(dataPortraitSketch, 'data-portrait-s');

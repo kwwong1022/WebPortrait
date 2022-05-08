@@ -9,6 +9,7 @@ dataPortraitSketch = (s) => {
             this.emotion = analyzed.emotion;
             this.image = img;
             this.val = 255;
+            this.repeated = false;
         }
     }
 
@@ -16,8 +17,8 @@ dataPortraitSketch = (s) => {
     let hists = [];  // history objs
 
     // user settings
-    let name = "", userGender = "private", sampleNum = 120, reuseSampleImg = true;
-    let faceImg;
+    let name = "", userGender = "private", sampleNum = 120, reuseSampleImg = false;
+    let faceImg, dataPortrait;
 
     s.preload = function() {
         // load history from local storage
@@ -82,7 +83,6 @@ dataPortraitSketch = (s) => {
     s.draw = function() {
         //s.background(255);
         if (dataReady && grids.length==0) {
-            //s.image(hists[0].image, 0, 0);
             // process img val for each img in hists[]
             hists.forEach((hist, i) => {
                 let sampleGap = 2;
@@ -96,10 +96,6 @@ dataPortraitSketch = (s) => {
                 console.log(`hist-${i}: ${hist.val}`);
             })
 
-            // num of rows : height / 60
-            // num of cols : width / 80
-            let nor = s.height/60;
-            let noc = s.width/80;
             if (faceImg && grids.length==0) {
                 s.fill(255);
                 s.rect(0, 0, s.width, s.height);
@@ -126,22 +122,72 @@ dataPortraitSketch = (s) => {
                 // else : grid setup finished
                 // - match each img val
                 grids.forEach(g => {
-                    // s.colorMode(s.HSB, 100, 100, 100, 1);
-                    // s.fill(g.val);
                     s.colorMode(s.RGB);
                     s.fill(g.c);
                     s.rect(g.x, g.y, 80, 60);
 
+                    // match grid img <=> hists[] img
+                    let minDist = 9999;
+                    let minHist = -1;
+                    // unrepeated
+                    hists.forEach((h, i) => {
+                        let dist = Math.max(h.val, g.val) - Math.min(h.val, g.val)
+                        if (dist < minDist && !h.repeated) {
+                            minDist = dist;
+                            minHist = i;
+                        }
+                    })
+                    // assign hist to grids
+                    if (!hists[minHist].repeated) {
+                        g.hist = hists[minHist];
+                        hists[minHist].repeated = true;
+                    }
+                    // **repeated
+                    let repeatedNum = 0;
+                    hists.forEach(h => { 
+                        if (h.repeated) repeatedNum++; 
+                        if (reuseSampleImg) repeatedNum = hists.length;
+                    })
+                    if (repeatedNum == hists.length) {
+                        hists.forEach(h => { h.repeated = false; })
+                    }
+
                     // place image
-                    s.image();
+                    if (g.hist) {
+                        s.tint(255, 150);
+                        s.image(g.hist.image, g.x, g.y, GRID_WIDTH, GRID_HEIGHT);
+                    }
                 });
+
+                // save processed data portrait : dataPortrait
+                dataPortrait = s.createImage(s.width, s.height);
+                for (let w=0; w<s.width; w++) {
+                    for (let h=0; h<s.height; h++) {
+                        dataPortrait.set(w, h, s.get(w, h));
+                    }
+                }
             }
         }
 
-        // match grid img <=> hists[] img
-    }
+        if (dataReady && grids!=0) {
+            // render portrait img;
+            s.image(dataPortrait, 0, 0, s.width, s.height);
 
-    // s.windowResized = function() {}
+            grids.forEach(g => {
+                // show info when hover
+                if (s.mouseX>g.x && s.mouseX<g.x+GRID_WIDTH && s.mouseY>g.y && s.mouseY<g.y+GRID_HEIGHT) {
+                    let offset = s.height - 160;
+                    s.fill(200);
+                    s.rect(10, 10+offset, 240, 140);
+                    s.fill(255);
+                    s.rect(15, 15+offset, 230, 130);
+                    s.fill(0);
+                    let { hostname } = new URL(g.hist.url);
+                    s.text(`Website: ${hostname}\nType: ${g.hist.type}\nTendency:\n - happy: ${g.hist.emotion.happy}\n - sad: ${g.hist.emotion.sad}\n - anger: ${g.hist.emotion.anger}\n - surprise: ${g.hist.emotion.surprise}\n - fear: ${g.hist.emotion.fear}`, 20, 20+offset, 250, 300);
+                }
+            })
+        }
+    }
 }
 
 var dataPortraitP5 = new p5(dataPortraitSketch, 'data-portrait-s');
